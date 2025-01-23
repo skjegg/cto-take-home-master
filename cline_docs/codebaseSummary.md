@@ -6,37 +6,37 @@
 - `Controller.java`: 
   * Implements `/api/user-request` POST endpoint
   * Orchestrates the workflow:
-    - File parsing
+    - File parsing with validation
     - JSON data loading
-    - LLM processing (TODO)
-    - Template manipulation (TODO)
+    - LLM-based intent processing
+    - Template manipulation
     - Document generation
+    - Error handling
 
 ### Services
 1. Document Processing
    - `DocumentService.java`: 
-     * Basic template loading from resources
+     * Template loading and management
      * Document saving functionality
-     * Needs implementation:
-       - Template content manipulation
-       - Placeholder replacement
-       - Section updates
+     * Recommendation insertion at marked location
+     * Format preservation
+     * Section content management
 
 2. File Processing
    - `FileParserService.java`:
-     * Basic text file content extraction
-     * Needs implementation:
-       - User intent parsing logic
-       - Intent validation
-       - Data extraction
+     * Content type validation
+     * Text file content extraction
+     * Error handling for invalid files
+     * UTF-8 encoding support
 
 3. Data Processing
    - `JsonParserService.java`: Handles JSON data loading
    - `LlmService.java`: Interface for LLM integration
-   - `LlmServiceImpl.java`: Implementation needed for:
-     * Intent processing
+   - `LlmServiceImpl.java`: Claude integration for:
+     * Intent analysis
      * Content generation
-     * Recommendation formatting
+     * Risk-appropriate recommendations
+     * Content cleaning
 
 ### Models
 1. Client Data
@@ -52,25 +52,26 @@
 
 ## Data Flow
 1. User Intent Processing
-   - User intent file received via REST endpoint (/api/user-request)
-   - File content extracted by FileParserService
-   - TODO: Intent parsing and validation
-   - TODO: Data extraction from intent
+   - User intent file received and validated
+   - Content extracted and checked for validity
+   - Intent analyzed using LLM service
+   - Risk assessment performed
 
 2. Data Integration
-   - Client data loaded from client.json via JsonParserService
-   - Organization data loaded from org.json via JsonParserService
-   - TODO: Data mapping to template fields
-   - TODO: Validation of required data
+   - Client data loaded and validated
+   - Organization data processed
+   - Risk profile matching
+   - Portfolio selection based on intent
 
 3. Document Generation
-   - Template loaded from resources using DocumentService
-   - TODO: Content generation via LLM service
-   - TODO: Template population with:
+   - Template loaded from resources
+   - Recommendation generated via LLM
+   - Content cleaned of unwanted elements
+   - Template populated with:
      * Client details
      * Current provider information
      * Recommended provider details
-     * Financial overview
+     * Risk warnings when needed
    - Document saved as recommendation.docx
 
 ## External Dependencies
@@ -86,36 +87,51 @@
 - `/userintent`: User intent examples
 
 ## Recent Changes
-- Initial project setup
-- Basic service implementations
-- Model class definitions
-- Resource file organization
+- Enhanced intent processing with LLM integration
+- Improved error handling and validation
+- Added comprehensive test coverage
+- Implemented recommendation cleaning
+- Added support for various intent formats
+- Enhanced documentation structure
 
 ## Development Focus
-Current focus is on implementing:
+Completed Implementation:
 1. Template Processing
-   - POI integration for content manipulation
-   - Placeholder definition and replacement
-   - Table data population
-   - Section content updates
+   - POI integration for document manipulation
+   - Dynamic recommendation insertion
+   - Format preservation
+   - Section content management
 
 2. Intent Processing
-   - User intent parsing logic
-   - Data extraction from intent text
-   - Validation of intent format
-   - Error handling for invalid intents
+   - LLM-based intent analysis
+   - Support for multiple intent formats
+   - Risk-appropriate recommendations
+   - Content cleaning and validation
 
 3. Content Generation
-   - LLM service implementation
-   - Recommendation text generation
-   - Dynamic content based on:
-     * User intent
-     * Client data
-     * Organization data
-   - Content formatting and structure
+   - Integrated Claude LLM service
+   - Context-aware recommendations
+   - Risk warnings for high-risk requests
+   - Clean, focused content generation
 
 4. Data Integration
-   - Client data mapping
+   - Client profile integration
    - Organization data processing
-   - Template field mapping
-   - Data validation framework
+   - Multi-provider support
+   - Risk profile matching
+
+Future Enhancements:
+1. Machine learning improvements
+   - Enhanced intent understanding
+   - Better risk profiling
+   - Pattern recognition
+
+2. Template Management
+   - Version control
+   - Multiple template support
+   - Dynamic section handling
+
+3. Performance Optimization
+   - Caching strategies
+   - Response time improvements
+   - Resource management

@@ -41,24 +41,40 @@ public class Controller {
     @PostMapping("/user-request")
     public ResponseEntity<String> handleUserRequest(@RequestParam("file") MultipartFile file) throws IOException {
         try {
+            // Validate file
+            if (file.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error: Empty file provided");
+            }
+
             // Parse the .txt file to extract the user intent
             String userIntent = parseTxtFile(file);
+            if (userIntent.trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error: No user intent found in file");
+            }
 
-            // Process the intent and generate recommendation
-            String recommendation = intentProcessingService.processIntent(userIntent);
+            try {
+                // Process the intent and generate recommendation
+                String recommendation = intentProcessingService.processIntent(userIntent);
 
-            // Load the template document
-            XWPFDocument templateDocument = documentService.loadTemplate();
+                // Load the template document
+                XWPFDocument templateDocument = documentService.loadTemplate();
 
-            // Insert the recommendation into the template
-            documentService.insertRecommendation(templateDocument, recommendation);
-            documentService.saveDocument(templateDocument);
+                // Insert the recommendation into the template
+                documentService.insertRecommendation(templateDocument, recommendation);
+                documentService.saveDocument(templateDocument);
 
-            return ResponseEntity.ok("User request processed, recommendation created.");
+                return ResponseEntity.ok("User request processed, recommendation created.");
+            } catch (RuntimeException e) {
+                log.error("Error processing intent: {}", e.getMessage(), e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error processing request: " + e.getMessage());
+            }
         } catch (IOException e) {
-            log.error("Error processing user request: {}", e.getMessage(), e);
+            log.error("Error reading file: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error processing request: " + e.getMessage());
+                .body("Error reading file: " + e.getMessage());
         }
     }
 }
