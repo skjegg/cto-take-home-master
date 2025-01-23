@@ -5097,7 +5097,7 @@ spring.application.name=Recruitment-Senior-TakeHome
 logging.level.root=INFO
 logging.level.org.springframework=INFO
 logging.level.com.automwrite.assessment=DEBUG
-anthropic.api.key=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
+anthropic.api.key=<redacted & disabled> 
 
 
 <environment_details>
