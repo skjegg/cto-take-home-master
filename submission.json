@@ -1,0 +1,32 @@
+{
+  "contact": {
+    "name": "Joakim Monstad",
+    "phone": "+1 (952) 836-4385",
+    "email": "joakim@joakim-yvette.com",
+    "resume": "https://docs.google.com/document/d/11o8uXGjpy1IdjuRjCSO-7FGvtaD_SPm66J7XgDpY5TU/edit?usp=sharing",
+    "availability": "now",
+    "salary_expectations": "will need a bit more than 70k£, but let's talk"
+  },
+  "submission": {
+    "github_repo": "https://github.com/automwrite/cto-take-home",
+    "interesting_files": [
+      "cline_task_jan-23-2025_1-11-19-pm.md",
+      "cline_docs/codebaseSummary.md",
+      "cline_docs/currentTask.md",
+      "cline_docs/projectRoadmap.md",
+      "cline_docs/techStack.md",
+      ".clinerules",
+      "src/main/resources/userintent/userintent-3.txt",
+      "src/main/resources/orginfo/org.json"
+    ]
+  },
+  "notes": [
+    "Total time taken: around 3hrs (check logs for curl requests from 73.123.51.52)",
+    "I had fun, so thank you! :-) ",
+    "Documentation of the development process is available in the cline_docs folder",
+    "Added an addtional user intent (see interesting_files above)",
+    "Implemented a riskier investment option for more aggressive growth strategies",
+    "Main task file and project configuration included",
+    "HMostly TDD with haeavy Cline"
+  ]
+}
